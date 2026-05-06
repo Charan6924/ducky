@@ -1,6 +1,6 @@
 # ducky
 
-A CLI tool that passively monitors a developer's local environment to capture signals about II coding assistant usage during a session.
+A CLI tool that passively monitors a developer's local environment to capture signals about AI coding assistant usage during a session.
 
 ## Install
 
@@ -21,4 +21,4 @@ ducky monitors traces that AI tools leave on a developer's machine — processes
 
 ## How it works
 
-ducky start' spawns a background watcher that passively collects signals until `ducky stop` is called. The stop command generates a structured JSON report summarizing the session.
+`ducky start` spawns a background watcher that passively collects signals until `ducky stop` is called. The stop command generates a structured JSON report summarizing the session.
