@@ -1,0 +1,21 @@
+{
+  "name": "ducky",
+  "version": "1.0.0",
+  "description": "A CLI tool that passively monitors a developer's local environment to capture signals about AI coding assistant usage during a session.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Charan6924/Ducky.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Charan6924/Ducky/issues"
+  },
+  "homepage": "https://github.com/Charan6924/Ducky#readme"
+}
