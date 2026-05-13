@@ -2,8 +2,13 @@
   "name": "ducky",
   "version": "1.0.0",
   "description": "A CLI tool that passively monitors a developer's local environment to capture signals about AI coding assistant usage during a session.",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "bin": {
+    "ducky": "dist/index.js"
+  },
   "scripts": {
+    "build": "tsc",
+    "prepublishOnly": "npm run build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -17,5 +22,9 @@
   "bugs": {
     "url": "https://github.com/Charan6924/Ducky/issues"
   },
-  "homepage": "https://github.com/Charan6924/Ducky#readme"
+  "homepage": "https://github.com/Charan6924/Ducky#readme",
+  "devDependencies": {
+    "@types/node": "^25.7.0",
+    "typescript": "^6.0.3"
+  }
 }

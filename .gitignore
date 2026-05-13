@@ -1,0 +1,5 @@
+node_modules/
+dist/
+ducky.session.json
+ducky-report.json
+.ducky.pid
