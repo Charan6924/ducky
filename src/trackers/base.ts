@@ -1,4 +1,4 @@
-interface TrackerInterface {
+export interface TrackerInterface {
     readonly name : string;
     start() : void;
     stop() : void;

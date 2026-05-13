@@ -1,4 +1,10 @@
+import { fork } from 'child_process';
+import { join } from 'path';
+import { writeFileSync } from 'fs';
+
 export function start(): void {
-    // TODO: check PID file, fork daemon, print confirmation
-    console.log('ducky started');
-}
+    const child = fork(join(__dirname, '../daemon.js'));
+    writeFileSync('.ducky.pid', String(child.pid));
+    console.log('ducky started (pid ' + child.pid + ')');
+}                                                                                                                                   
+                                                                                                                                      
