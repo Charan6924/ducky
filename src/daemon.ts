@@ -5,7 +5,7 @@ import { ShellHistoryWatcher } from './trackers/shell-history.js';
 import { WindowWatcher } from './trackers/windows.js';
 import { GitLogWatcher } from './trackers/git-log.js';
 import { FilePatternWatcher } from './trackers/file-patterns.js';
-import { writeSession } from './storage.js';
+import { initSession, writeSession } from './storage.js';
 
 const trackers: TrackerInterface[] = [
     new ProcessWatcher(),
@@ -19,6 +19,8 @@ const trackers: TrackerInterface[] = [
 let saveInterval: ReturnType<typeof setInterval> | null = null;
 
 export function run(): void {
+    initSession(process.cwd());
+
     for (const tracker of trackers) {
         tracker.start();
     }
@@ -34,7 +36,7 @@ export function shutdown(): void {
     for (const tracker of trackers){
         tracker.stop();
     }
-    writeSession(trackers);
+    writeSession(trackers, true);
 }
 
 process.on('SIGTERM', () => {
