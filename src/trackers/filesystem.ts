@@ -9,10 +9,12 @@ export class FilesystemWatcher implements TrackerInterface{
     private changesByType: Record<string, number> = {};
     private changesByExt: Record<string, number> = {};
     private recentEvents: { file: string; type: string; timestamp: string }[] = [];
+    private readonly ignorePatterns = /ducky[.-](report|session)\.json|\.ducky\.pid/;
 
     start(): void {
         this.watcher = watch(process.cwd(), { recursive: true }, (eventType, filename) => {
             if (!filename) return;
+            if (this.ignorePatterns.test(String(filename))) return;
 
             this.totalEvents++;
             this.changesByType[eventType] = (this.changesByType[eventType] || 0) + 1;

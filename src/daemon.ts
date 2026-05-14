@@ -5,6 +5,7 @@ import { ShellHistoryWatcher } from './trackers/shell-history.js';
 import { WindowWatcher } from './trackers/windows.js';
 import { GitLogWatcher } from './trackers/git-log.js';
 import { FilePatternWatcher } from './trackers/file-patterns.js';
+import { NetworkWatcher } from './trackers/network.js';
 import { initSession, writeSession } from './storage.js';
 
 const trackers: TrackerInterface[] = [
@@ -14,6 +15,7 @@ const trackers: TrackerInterface[] = [
     new WindowWatcher(),
     new GitLogWatcher(),
     new FilePatternWatcher(),
+    new NetworkWatcher(),
 ];
 
 let saveInterval: ReturnType<typeof setInterval> | null = null;
