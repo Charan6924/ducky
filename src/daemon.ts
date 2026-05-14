@@ -35,10 +35,10 @@ export function shutdown(): void {
         clearInterval(saveInterval);
         saveInterval = null;
     }
+    writeSession(trackers, true);
     for (const tracker of trackers){
         tracker.stop();
     }
-    writeSession(trackers, true);
 }
 
 process.on('SIGTERM', () => {

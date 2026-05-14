@@ -11,8 +11,14 @@ interface SessionFile {
 }
 
 export function generateReport(): void {
-    const raw = readFileSync('ducky.session.json', 'utf-8');
-    const session: SessionFile = JSON.parse(raw);
+    let session: SessionFile;
+    try {
+        const raw = readFileSync('ducky.session.json', 'utf-8');
+        session = JSON.parse(raw);
+    } catch {
+        console.error('failed to read session data \u2014 is ducky running?');
+        return;
+    }
 
     const startMs = new Date(session.metadata.startTime).getTime();
     const endMs = new Date(session.metadata.endTime).getTime();
@@ -38,6 +44,6 @@ function printSummary(report: DuckyReport): void {
 
     console.log('\nducky session complete');
     console.log('duration: ' + durationSec + 's');
-    console.log('rackers: ' + trackerCount);
+    console.log('trackers: ' + trackerCount);
     console.log('report:   ducky-report.json\n');
 }

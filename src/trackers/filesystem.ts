@@ -13,6 +13,7 @@ export class FilesystemWatcher implements TrackerInterface{
 
     start(): void {
         this.watcher = watch(process.cwd(), { recursive: true }, (eventType, filename) => {
+        this.watcher!.on('error', () => { /* dir deleted or permissions changed */ });
             if (!filename) return;
             if (this.ignorePatterns.test(String(filename))) return;
 

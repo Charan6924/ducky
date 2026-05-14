@@ -11,13 +11,16 @@ export class GitLogWatcher implements TrackerInterface{
     start() : void{
         try{
             const projectDir = process.cwd();
-            const log = execSync('git log -30 --format="%H|%ai|%s|%b"', { cwd: projectDir }).toString();     
-            
+            const log = execSync('git log -30 --format="%H%n%ai%n%s%n%B%x00"', { cwd: projectDir }).toString();
+
             const commits: { hash: string; message: string; aiAttributed: boolean; date: string }[] = [];
 
-            for (const line of log.trim().split('\n')){
-                const [hash, date, subject, ...bodyParts] = line.split('|');
-                const body = bodyParts.join('|');
+            for (const record of log.split('\0').filter(r => r.trim())) {
+                const lines = record.split('\n');
+                const hash = lines[0] || '';
+                const date = lines[1] || '';
+                const subject = lines[2] || '';
+                const body = lines.slice(3).join('\n');
                 const message = subject + '\n' + body;
                 const aiAttributed = message.includes('Co-Authored-By')
 

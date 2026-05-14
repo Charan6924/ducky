@@ -17,6 +17,7 @@ export class NetworkWatcher implements TrackerInterface {
     private intervalId: ReturnType<typeof setInterval> | null = null;
     private connections: { process: string; endpoint: string; timestamp: string }[] = [];
     private totalSamples = 0;
+    private readonly maxConnections = 1000;
 
     start(): void {
         const poll = (): void => {
@@ -27,6 +28,9 @@ export class NetworkWatcher implements TrackerInterface {
                     const regex = new RegExp(`(\\S+)\\s+\\d+.*${endpoint.replace(/\./g, '\\.')}`, 'i');
                     const match = output.match(regex);
                     if (match && match[1]) {
+                        if (this.connections.length >= this.maxConnections) {
+                            this.connections.splice(0, this.connections.length - this.maxConnections + 1);
+                        }
                         this.connections.push({
                             process: match[1],
                             endpoint,

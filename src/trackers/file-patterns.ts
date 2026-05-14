@@ -6,6 +6,9 @@ const AI_FILE_PATTERNS = ['generated', 'ai-', '.cursor', '.copilot-'];
 
 export class FilePatternWatcher implements TrackerInterface {
     readonly name = 'file-patterns';
+    private cachedData: Record<string, unknown> | null = null;
+    private lastScan = 0;
+    private readonly scanInterval = 60000;
 
     start(): void {
         // static analysis — work happens in getData()
@@ -16,6 +19,11 @@ export class FilePatternWatcher implements TrackerInterface {
     }
 
     getData(): Record<string, unknown> {
+        const now = Date.now();
+        if (this.cachedData && now - this.lastScan < this.scanInterval) {
+            return this.cachedData;
+        }
+
         const files = this.walkDir(process.cwd());
 
         // files with AI-associated naming patterns
@@ -53,13 +61,15 @@ export class FilePatternWatcher implements TrackerInterface {
             }
         }
 
-        return {
+        this.cachedData = {
             totalFiles: files.length,
             aiNamedFiles: aiNamed.length,
             aiNamedExamples: aiNamed.slice(0, 20),
             burstsDetected: bursts.length,
             burstWindows: bursts,
         };
+        this.lastScan = now;
+        return this.cachedData;
     }
 
     private walkDir(dir: string): string[] {
