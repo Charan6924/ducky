@@ -5,6 +5,6 @@ describe('ShellHistoryWatcher', () => {
     it('returns empty data (stub)', () => {
         const watcher = new ShellHistoryWatcher();
         expect(watcher.name).toBe('shell history');
-        expect(watcher.getData()).toEqual({});
+        expect(watcher.getData()).toEqual({ detections: [] });
     });
 });
