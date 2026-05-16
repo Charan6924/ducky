@@ -1,16 +1,18 @@
-# 🦆 ducky
+# ducky
 
 A CLI tool that passively monitors a developer's local environment to capture signals about AI coding assistant usage during a session.
 
 ## Installation
 
 ```bash
-npm install
-npm run build
-npm link
+npm install -g @charan6924/ducky
 ```
 
-After `npm link`, the `ducky` command is available globally.
+Or to run without installing:
+
+```bash
+npx @charan6924/ducky start
+```
 
 ## Usage
 
